@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub之日榜</title>
+</head>
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 100%;height:400px;"></div>
+
+<!--从网络上下载 JQuery 这个库-->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<!-- 引入 ECharts 文件 相对路径-->
+<script src="echarts.min.js"></script>
+
+<script type="text/javascript">
+    //1.获取当前日期
+    Date.prototype.Format = function (formatStr) {
+        var str = formatStr;
+        var Week = ['日', '一', '二', '三', '四', '五', '六'];
+        str = str.replace(/yyyy|YYYY/, this.getFullYear());
+        str = str.replace(/yy|YY/, (this.getYear() % 100) > 9 ? (this.getYear() % 100).toString() : '0' + (this.getYear() % 100));
+        str = str.replace(/MM/, this.getMonth() > 9 ? this.getMonth().toString() + 1 : '0' + (this.getMonth() + 1));
+        str = str.replace(/M/g, this.getMonth());
+        str = str.replace(/w|W/g, Week[this.getDay()]);
+        str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+        str = str.replace(/d|D/g, this.getDate());
+        str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+        str = str.replace(/h|H/g, this.getHours());
+        str = str.replace(/mm/, this.getMinutes() > 9 ? this.getMinutes().toString() : '0' + this.getMinutes());
+        str = str.replace(/m/g, this.getMinutes());
+        str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+        str = str.replace(/s|S/g, this.getSeconds());
+        return str;
+    }
+
+    var date = new Date().Format("yyyyMMdd")
+    // 这是 JS 常用调试手段, 可以把一段内容打印到浏览器的控制台上.
+    console.log(date)
+
+    //2.JQuery发送请求给服务器
+    //ajax 是网页和 HTTP 服务器之间的一种交互机制
+    $.ajax({
+        url: "allRank?date=" + date,
+        type: "get",
+        //data 是服务器响应的 body 数据，即一个 json 对象构成的数组
+        success:function (data, status) {
+            var projectNames = [];
+            var stars = [];
+            //遍历 data 内容，index 取到数组中的一个 json 对象
+            for (var index in data) {
+                var project = data[index];
+                projectNames.push(project.name);
+                stars.push(project.starCnt);
+            }
+
+            //3.收到响应绘制图表
+            drawStars(projectNames, stars)
+        }
+    })
+    // projectNames = ['t1','t2'];
+    // stars = [1,2];
+    //drawStars(projectNames, stars);
+
+    function drawStars(projectNames, stars) {
+        //告诉 echarts 要画到哪个 html 标签中
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'GitHub star日榜'
+            },
+            tooltip: {},
+            legend: {
+                data:['star']
+            },
+            xAxis: {
+                //data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                data:projectNames,
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar', //bar 表示柱状图
+                data: stars
+            }],
+            dataZoom: [
+                {   // 这个dataZoom组件，默认控制x轴。
+                    type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+                    start: 0,      // 左边在 0 的位置。
+                    end: 10         // 右边在 10% 的位置。
+                },
+                {   // 这个dataZoom组件，也控制x轴。
+                    type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+                    start: 0,      // 左边在 0 的位置。
+                    end: 10         // 右边在 10% 的位置。
+                }
+            ],
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+
+</script>
+</body>
+</html>
