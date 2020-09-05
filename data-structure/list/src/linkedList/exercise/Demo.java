@@ -26,17 +26,23 @@ public class Demo {
             }
         }
         ListNode cur = head;
+        //1.当开始若干个结点等于给定值
         while (cur.val == val) {
             cur = cur.next;
         }
+
+        //2.当中间有结点等于给定值
         head = cur;
         ListNode prev = head;
         while (prev != null) {
             if (prev.next != null && prev.next.val == val) {
                 ListNode c = prev.next;
+                //存在中间连续几个结点等于给定值的情况
                 while (c != null && c.val == val) {
                     c = c.next;
                 }
+
+                //删除等于给定值的结点
                 prev.next = c;
             }
             prev = prev.next;
@@ -47,14 +53,15 @@ public class Demo {
     //反转单链表
     public static ListNode reverseList(ListNode head) {
         SingleLinkedList linkedList = new SingleLinkedList();
-        //空链表
+        //1.空链表
         if (head == null) {
             return head;
         }
-        //只有一个节点
+        //2.只有一个节点
         if (head.next == null) {
             return head;
         }
+        //3.多节点
         ListNode prev = null;
         ListNode cur = head;
         ListNode next;
@@ -191,14 +198,6 @@ public class Demo {
             }
         }
         return false;
-    }
-
-    public static int add(int a, int b) {
-        return 0;
-    }
-
-    public static int add(double a, double b, double c) {
-        return 2;
     }
 
     //返回链表入环的第一个节点
