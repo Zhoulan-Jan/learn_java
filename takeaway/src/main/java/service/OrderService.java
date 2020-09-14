@@ -41,6 +41,7 @@ public class OrderService {
             sushiDao.updateSushi(sushi);
         }
 
+        //清空购物车
         cart.clear();
         return orderId;
     }

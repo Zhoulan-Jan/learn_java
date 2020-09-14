@@ -28,7 +28,7 @@ public class SushiServlet extends BaseServlet {
             return;
         }
         if ("admin".equals(user.getUsername())){
-            //1.通过Sushi查询全部图书
+            //1.通过SushiService查询全部图书
             List<Sushi> sushis = sushiService.querySushis();
             //2.把全部图书保存到Request域中
             req.setAttribute("sushis", sushis);

@@ -94,7 +94,7 @@ public class OrderServlet extends BaseServlet {
         List<Order> user_orders = orderService.showUserOrders(user.getId());
         //保存到request域中
         req.setAttribute("user_orders", user_orders);
-        //转发到order_manager.jsp显示数据
+        //转发到order.jsp显示数据
         req.getRequestDispatcher("/pages/order/order.jsp").forward(req, resp);
     }
 
