@@ -7,7 +7,7 @@ public class Merge {
     }
 
     private static void mergeSortHelper(int low, int high, int[] nums) {
-        if (low >= high) {
+        if (low >= high || high - low == 1) {
             return;
         }
         int mid = (low+high)/2;
