@@ -72,19 +72,19 @@ public class Quick {
         return left;
     }
 
-    //前后遍历法
-    //定义基准值为nums[right]，定义两个指针，初始时，front指向起始位置的前一个，rear指向起始位置
-    //rear向后走，找到比基准值小的数，交换rear与++front，直至rear走到right结束
-    //最后交换++front与right
+    //前后遍历法 能解决数字相同的情况 其余的不行
+    //定义基准值为nums[right]，定义两个指针，初始时，front指向起始位置，rear/j指向起始位置
+    //rear向后走，找到比基准值小的数，交换rear与front，front++，直至rear/j走到right结束
+    //最后交换front与right
     private static int partition3(int left, int right, int[] nums) {
-        int front = left-1; //指大
+        int front = left;
         int pivot = nums[right];
-        for (int rear = left; rear < right; rear++) { //rear找小
-            if (nums[rear] < pivot) {
-                swap(rear, ++front, nums);
+        for (int j = left; j < right; j++) { //j找小
+            if (nums[j] < pivot) {
+                swap(j, front++, nums);
             }
         }
-        swap(++front, right, nums);
+        swap(front, right, nums);
         return front;
     }
 
