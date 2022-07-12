@@ -28,7 +28,7 @@ public class ShowStatus {
         public void run() {
             while (true) {
                 System.out.println("小猫");
-                yield(); //加了yield，小猫较于小狗数量少
+                Thread.yield(); //加了yield，小猫较于小狗数量少
             }
         }
     }
