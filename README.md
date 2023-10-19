@@ -22,6 +22,8 @@ jdbc
 
 thread
 
+net
+
 ### excellent
 
 spring
@@ -31,5 +33,7 @@ spring
 爬虫
 
 Java API搜索
+
+寿司外卖系统
 
 基于微信小程序的考勤打卡
