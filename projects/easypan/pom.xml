@@ -31,7 +31,7 @@
         <logback.version>1.2.10</logback.version>
         <mysql.version>8.0.23</mysql.version>
         <aspectjweaver.version>1.9.4</aspectjweaver.version>
-        <fastjson.version>1.2.66</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons.lang3.version>3.4</commons.lang3.version>
         <commons.codec.version>1.9</commons.codec.version>
         <commons.io.version>2.5</commons.io.version>
